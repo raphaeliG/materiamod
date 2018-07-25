@@ -1,0 +1,14 @@
+itemGroup.main=Materiamod
+itemGroup.machines=Materiamod Machines
+
+item.development_card.name=Development Card
+item.compressed_iron.name=Compressed Iron
+item.amethyst_crystal.name=Amethyst Crystal
+item.copper_ingot.name=Copper Ingot
+item.copper_axe.name=Copper Axe
+
+tile.copper_block.name=Copper Block
+tile.compressed_iron_block.name=Compressed Iron Block
+tile.compressor.name=Compressor
+
+container.compressor.name=Compressor

@@ -1,0 +1,8 @@
+{
+    "variants": 
+    {
+         "normal": { "model": "materiamod:compressor"},
+        "active=false": { "model": "materiamod:compressor"},
+        "active=true": { "model": "materiamod:active_compressor" }
+    }
+}

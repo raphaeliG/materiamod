@@ -1,0 +1,9 @@
+{
+    "variants": 
+    {
+        "normal": 
+        { 
+            "model": "materiamod:compressed_iron_block" 
+        }
+    }
+}
