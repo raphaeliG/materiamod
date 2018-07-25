@@ -1,0 +1,9 @@
+{
+    "variants": 
+    {
+        "normal": 
+        { 
+            "model": "materiamod:copper_block" 
+        }
+    }
+}
