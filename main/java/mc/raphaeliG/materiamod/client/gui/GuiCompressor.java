@@ -22,11 +22,11 @@ public class GuiCompressor extends GuiContainer {
 		
 		xSize = 176;
 		ySize = 166;
-		
 	}
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+		tileEntity = (TileEntityCompressor)tileEntity.getWorld().getTileEntity(tileEntity.getPos());
 		drawDefaultBackground();
 		mc.getTextureManager().bindTexture(new ResourceLocation(Reference.MODID, "textures/gui/container/compressor.png"));
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
@@ -38,7 +38,7 @@ public class GuiCompressor extends GuiContainer {
         //String name = I18n.format("container.compressor.name");
         //fontRenderer.drawString(name, xSize / 2 - fontRenderer.getStringWidth(name) / 2, 3, 0x404040);
         //fontRenderer.drawString(playerInventory.getDisplayName().getFormattedText(), 8, 72, 4210752);
-        
+		tileEntity = (TileEntityCompressor)tileEntity.getWorld().getTileEntity(tileEntity.getPos());
         fontRenderer.drawString("furnaceBurnTime: " + tileEntity.furnaceBurnTime, 4, 4, 4210752);
         fontRenderer.drawString("currentItemBurnTime: " + tileEntity.currentItemBurnTime, 4, 14, 4210752);
         fontRenderer.drawString("cookTime: " + tileEntity.cookTime, 4, 24, 4210752);

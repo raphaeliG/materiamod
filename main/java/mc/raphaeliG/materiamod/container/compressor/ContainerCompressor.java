@@ -18,8 +18,8 @@ public class ContainerCompressor extends Container{
 	public ContainerCompressor(IInventory playerInventory, TileEntityCompressor tileEntity) {
 		this.tileEntity = tileEntity;
 		handler = this.tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-		addSlotToContainer(new SlotInputCompressor(handler, TileEntityCompressor.INPUT_FUEL, 20, 35));
-		addSlotToContainer(new SlotInputCompressor(handler, TileEntityCompressor.INPUT_TO_COMPRESS, 56, 35));
+		addSlotToContainer(new SlotInputFuel(handler, TileEntityCompressor.INPUT_FUEL, 20, 35));
+		addSlotToContainer(new SlotInputRcipe(handler, TileEntityCompressor.INPUT_TO_COMPRESS, 56, 35));
 		addSlotToContainer(new SlotOutput(handler, TileEntityCompressor.OUTPUT, 116, 35));
 		
 		

@@ -16,7 +16,6 @@ public class CompressorRecipeHelper {
 	private static final CompressorFuel REDSTONE_DUST = new CompressorFuel(Items.REDSTONE, 800);
 
 	public static boolean isFuel(Item item) {
-		System.out.println("Is a fuel: " + (getFuelTime(new ItemStack(item)) != 0));
 		return getFuelTime(new ItemStack(item)) != 0;
 	}
 	
@@ -29,8 +28,7 @@ public class CompressorRecipeHelper {
 	}
 
 	public static boolean isRecipe(Item item) {
-		System.out.println("Is a recipe: " + (getOutput(item) != null));
-		return getOutput(item) != null;
+		return !getOutput(item).isEmpty();
 	}
 	
 	public static ItemStack getOutput(Item input)
