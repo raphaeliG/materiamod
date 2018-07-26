@@ -79,17 +79,4 @@ public class ContainerCompressor extends Container{
 	public boolean canInteractWith(EntityPlayer playerIn) {
 		return !playerIn.isSpectator();
 	}
-    
-    @Override
-	public void detectAndSendChanges() {
-		super.detectAndSendChanges();
-		for(int i = 0; i < this.listeners.size(); i++) {
-			IContainerListener listener = (IContainerListener)this.listeners.get(i);
-			if(this.compressTime != tileEntity.compressTime) {
-				listener.sendWindowProperty(this, 0, tileEntity.compressTime);
-				tileEntity.markDirty();
-			}
-		}
-		this.compressTime = tileEntity.compressTime;
-	}
 }
