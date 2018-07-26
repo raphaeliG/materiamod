@@ -26,7 +26,7 @@ public class GuiCompressor extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-		tileEntity = (TileEntityCompressor)tileEntity.getWorld().getTileEntity(tileEntity.getPos());
+		//tileEntity = (TileEntityCompressor)tileEntity.getWorld().getTileEntity(tileEntity.getPos());
 		drawDefaultBackground();
 		mc.getTextureManager().bindTexture(new ResourceLocation(Reference.MODID, "textures/gui/container/compressor.png"));
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
