@@ -35,14 +35,14 @@ public class GuiCompressor extends GuiContainer {
 	
 	@Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        //String name = I18n.format("container.compressor.name");
-        //fontRenderer.drawString(name, xSize / 2 - fontRenderer.getStringWidth(name) / 2, 3, 0x404040);
-        //fontRenderer.drawString(playerInventory.getDisplayName().getFormattedText(), 8, 72, 4210752);
-		tileEntity = (TileEntityCompressor)tileEntity.getWorld().getTileEntity(tileEntity.getPos());
-        fontRenderer.drawString("furnaceBurnTime: " + tileEntity.furnaceBurnTime, 4, 4, 4210752);
-        fontRenderer.drawString("currentItemBurnTime: " + tileEntity.currentItemBurnTime, 4, 14, 4210752);
-        fontRenderer.drawString("cookTime: " + tileEntity.cookTime, 4, 24, 4210752);
-        fontRenderer.drawString("totalCookTime: " + tileEntity.totalCookTime, 4, 34, 4210752);
+        String name = I18n.format("container.compressor.name");
+        fontRenderer.drawString(name, xSize / 2 - fontRenderer.getStringWidth(name) / 2, 3, 0x404040);
+        fontRenderer.drawString(playerInventory.getDisplayName().getFormattedText(), 8, 72, 4210752);
+	//tileEntity = (TileEntityCompressor)tileEntity.getWorld().getTileEntity(tileEntity.getPos());
+        //fontRenderer.drawString("furnaceBurnTime: " + tileEntity.furnaceBurnTime, 4, 4, 4210752);
+        //fontRenderer.drawString("currentItemBurnTime: " + tileEntity.currentItemBurnTime, 4, 14, 4210752);
+        fontRenderer.drawString("CT" + tileEntity.cookTime, 4, 24, 4210752);
+        //fontRenderer.drawString("totalCookTime: " + tileEntity.totalCookTime, 4, 34, 4210752);
     }
 
 }
