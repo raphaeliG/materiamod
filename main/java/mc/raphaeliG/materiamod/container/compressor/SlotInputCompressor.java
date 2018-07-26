@@ -1,7 +1,7 @@
 package mc.raphaeliG.materiamod.container.compressor;
 
-import mc.raphaeliG.materiamod.objects.blocks.compressor.TileEntityCompressor;
 import mc.raphaeliG.materiamod.recipes.compressor.CompressorRecipeHelper;
+import mc.raphaeliG.materiamod.tileentity.TileEntityCompressor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;

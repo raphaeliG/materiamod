@@ -2,7 +2,7 @@ package mc.raphaeliG.materiamod.util.handlers;
 
 import mc.raphaeliG.materiamod.init.BlockInit;
 import mc.raphaeliG.materiamod.init.ItemInit;
-import mc.raphaeliG.materiamod.objects.blocks.compressor.TileEntityCompressor;
+import mc.raphaeliG.materiamod.tileentity.TileEntityCompressor;
 import mc.raphaeliG.materiamod.util.IHasModel;
 import mc.raphaeliG.materiamod.util.Reference;
 import net.minecraft.block.Block;

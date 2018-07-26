@@ -1,7 +1,7 @@
 package mc.raphaeliG.materiamod.client.gui;
 
 import mc.raphaeliG.materiamod.container.compressor.ContainerCompressor;
-import mc.raphaeliG.materiamod.objects.blocks.compressor.TileEntityCompressor;
+import mc.raphaeliG.materiamod.tileentity.TileEntityCompressor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

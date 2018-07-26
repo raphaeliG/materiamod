@@ -3,7 +3,7 @@ package mc.raphaeliG.materiamod.init;
 import java.util.ArrayList;
 import java.util.List;
 
-import mc.raphaeliG.materiamod.objects.blocks.compressor.BlockCompressor;
+import mc.raphaeliG.materiamod.objects.blocks.BlockCompressor;
 import mc.raphaeliG.materiamod.objects.blocks.templates.BlockCompressedMaterial;
 import mc.raphaeliG.materiamod.objects.blocks.templates.BlockMaterial;
 import net.minecraft.block.Block;

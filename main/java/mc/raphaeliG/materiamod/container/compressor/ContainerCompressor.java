@@ -1,6 +1,6 @@
 package mc.raphaeliG.materiamod.container.compressor;
 
-import mc.raphaeliG.materiamod.objects.blocks.compressor.TileEntityCompressor;
+import mc.raphaeliG.materiamod.tileentity.TileEntityCompressor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;

@@ -1,7 +1,7 @@
 package mc.raphaeliG.materiamod.client.gui;
 
 import mc.raphaeliG.materiamod.container.compressor.ContainerCompressor;
-import mc.raphaeliG.materiamod.objects.blocks.compressor.TileEntityCompressor;
+import mc.raphaeliG.materiamod.tileentity.TileEntityCompressor;
 import mc.raphaeliG.materiamod.util.Reference;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -31,17 +31,18 @@ public class GuiCompressor extends GuiContainer {
 		mc.getTextureManager().bindTexture(new ResourceLocation(Reference.MODID, "textures/gui/container/compressor.png"));
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 		
-		//String s = I18n.format("container.compressor"); //Gets the formatted name for the block breaker from the language file - NOTE ADD "container.block_breaker=Block Breaker" to the language file (without quotes) and then delete this note
-		//mc.fontRenderer.drawString(s, guiLeft + xSize / 2 - mc.fontRenderer.getStringWidth(s) / 2, guiTop + 6, 4210752); //Draws the block breaker name in the center on the top of the gui
-		//mc.fontRenderer.drawString(playerInventory.getDisplayName().getFormattedText(), guiLeft + 8, guiTop + 72, 4210752); //The player's inventory name
 		}
 	
 	@Override
-
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        String name = I18n.format("container.compressor.name");
-        fontRenderer.drawString(name, xSize / 2 - fontRenderer.getStringWidth(name) / 2, 3, 0x404040);
-        fontRenderer.drawString(playerInventory.getDisplayName().getFormattedText(), 8, 72, 4210752);
+        //String name = I18n.format("container.compressor.name");
+        //fontRenderer.drawString(name, xSize / 2 - fontRenderer.getStringWidth(name) / 2, 3, 0x404040);
+        //fontRenderer.drawString(playerInventory.getDisplayName().getFormattedText(), 8, 72, 4210752);
+        
+        fontRenderer.drawString("furnaceBurnTime: " + tileEntity.furnaceBurnTime, 4, 4, 4210752);
+        fontRenderer.drawString("currentItemBurnTime: " + tileEntity.currentItemBurnTime, 4, 14, 4210752);
+        fontRenderer.drawString("cookTime: " + tileEntity.cookTime, 4, 24, 4210752);
+        fontRenderer.drawString("totalCookTime: " + tileEntity.totalCookTime, 4, 34, 4210752);
     }
 
 }
