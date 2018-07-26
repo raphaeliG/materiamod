@@ -11,7 +11,7 @@ public class ClientProxy extends CommonProxy {
 	
 	@Override
 	public void init() {
-		NetworkRegistry.INSTANCE.registerGuiHandler(Materiamod.instance, new GuiHandler());
+		
 	}
 	
 	@Override

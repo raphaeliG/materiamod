@@ -35,6 +35,11 @@ public class BlockCompressor extends BlockNotFull implements ITileEntityProvider
 	}
 	
 	@Override
+	public boolean hasTileEntity() {
+		return true;
+	}
+	
+	@Override
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
 		IItemHandler handler = ((TileEntityCompressor)worldIn.getTileEntity(pos)).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 		for (int i = 0; i < handler.getSlots(); ++i)

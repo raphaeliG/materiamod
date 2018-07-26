@@ -1,6 +1,8 @@
 package mc.raphaeliG.materiamod.client.gui;
 
 import mc.raphaeliG.materiamod.container.compressor.ContainerCompressor;
+import mc.raphaeliG.materiamod.network.PacketGetData;
+import mc.raphaeliG.materiamod.network.PacketHandler;
 import mc.raphaeliG.materiamod.tileentity.TileEntityCompressor;
 import mc.raphaeliG.materiamod.util.Reference;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -14,6 +16,9 @@ public class GuiCompressor extends GuiContainer {
 	
 	private IInventory playerInventory;
 	private TileEntityCompressor tileEntity;
+	
+	public static int fuelTime = 0, CurrentItemFuelTime = 0, compressTime = 0, totalCompressTime = 0;
+	public static int sync = 0;
 	
 	public GuiCompressor(IInventory playerInventory, TileEntityCompressor tileEntity) {
 		super(new ContainerCompressor(playerInventory, tileEntity));
@@ -35,14 +40,16 @@ public class GuiCompressor extends GuiContainer {
 	
 	@Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        String name = I18n.format("container.compressor.name");
+		tileEntity.readFromNBT(tileEntity.getUpdatePacket().getNbtCompound());
+		String name = I18n.format("container.compressor.name");
         fontRenderer.drawString(name, xSize / 2 - fontRenderer.getStringWidth(name) / 2, 3, 0x404040);
         fontRenderer.drawString(playerInventory.getDisplayName().getFormattedText(), 8, 72, 4210752);
-	//tileEntity = (TileEntityCompressor)tileEntity.getWorld().getTileEntity(tileEntity.getPos());
-        //fontRenderer.drawString("furnaceBurnTime: " + tileEntity.furnaceBurnTime, 4, 4, 4210752);
-        //fontRenderer.drawString("currentItemBurnTime: " + tileEntity.currentItemBurnTime, 4, 14, 4210752);
-        fontRenderer.drawString("CT" + tileEntity.cookTime, 4, 24, 4210752);
-        //fontRenderer.drawString("totalCookTime: " + tileEntity.totalCookTime, 4, 34, 4210752);
+        
+        sync = (sync + 1) % 10;
+        if (sync == 0) PacketHandler.INSTANCE.sendToServer(new PacketGetData(tileEntity.getPos(),
+        		"mc.raphaeliG.materiamod.client.gui.GuiCompressor", "fuelTime", "currentItemFuelTime", "compressTime", "totalCompressTime"));
+        
+        fontRenderer.drawString("CT" + tileEntity.compressTime, 4, 4, 0x404040);
     }
 
 }

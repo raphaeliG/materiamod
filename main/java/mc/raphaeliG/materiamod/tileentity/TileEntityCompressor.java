@@ -29,13 +29,13 @@ public class TileEntityCompressor extends TileEntity implements ITickable, ICapa
 	public static final int OUTPUT = 2;
 	
 	//The number of ticks that the compressor will keep compressing
-	public int furnaceBurnTime = 0;
+	public int fuelTime = 0;
 	//The number of ticks that a fresh copy of the currently-used fuel item would keep the compressor compressing for
-	public int currentItemBurnTime = 0;
+	public int currentItemFuelTime = 0;
     //The number of ticks the compressor is compressing
-	public int cookTime = 0;
+	public int compressTime = 0;
     //The number of ticks that a fresh copy of the currently-compressed item would need to be compressed for
-	public int totalCookTime = 0;
+	public int totalCompressTime = 0;
 	
 	private ItemStackHandler handler;
 	
@@ -45,7 +45,7 @@ public class TileEntityCompressor extends TileEntity implements ITickable, ICapa
 	
 	private boolean isCompressing()
 	{
-		return furnaceBurnTime > 0;
+		return fuelTime > 0;
 	}
 	
 	@Override
@@ -55,39 +55,37 @@ public class TileEntityCompressor extends TileEntity implements ITickable, ICapa
 		{
 			if(isCompressing())
 			{
-				--furnaceBurnTime;
+				--fuelTime;
 				if (canCompress())
 				{
-					progress();
+					flag = !progress();
 				}
 			}
 			else if (!handler.getStackInSlot(INPUT_FUEL).isEmpty() && canCompress())
 			{
-				totalCookTime = CompressorRecipeHelper.getRecipeTime(handler.getStackInSlot(INPUT_TO_COMPRESS).getItem());
-				cookTime = 0;
-				currentItemBurnTime = CompressorRecipeHelper.getFuelTime(handler.getStackInSlot(INPUT_FUEL));
-				furnaceBurnTime = currentItemBurnTime;
+				totalCompressTime = CompressorRecipeHelper.getRecipeTime(handler.getStackInSlot(INPUT_TO_COMPRESS).getItem());
+				compressTime = 0;
+				currentItemFuelTime = CompressorRecipeHelper.getFuelTime(handler.getStackInSlot(INPUT_FUEL));
+				fuelTime = currentItemFuelTime;
 				handler.getStackInSlot(INPUT_FUEL).shrink(1);
-				progress();
+				flag = !progress();
 			}
 			else
 			{
-				currentItemBurnTime = 0;
-				cookTime = 0;
-				totalCookTime = 0;
+				currentItemFuelTime = 0;
+				compressTime = 0;
+				totalCompressTime = 0;
+				flag = false;
 			}
 		}
-		if (flag != isCompressing())
-		{
-			//Change state
-		}
+		//change state
 	}
 	
-	private void progress() {
-		++cookTime;
-		if (cookTime == totalCookTime)
+	private boolean progress() {
+		++compressTime;
+		if (compressTime == totalCompressTime)
 		{
-			cookTime = 0;
+			compressTime = 0;
 			if (handler.getStackInSlot(OUTPUT).isEmpty())
 			{
 				handler.setStackInSlot(OUTPUT, new ItemStack(CompressorRecipeHelper.getOutput(handler.getStackInSlot(INPUT_TO_COMPRESS).getItem()).getItem()));
@@ -97,7 +95,9 @@ public class TileEntityCompressor extends TileEntity implements ITickable, ICapa
 				handler.setStackInSlot(OUTPUT, new ItemStack(handler.getStackInSlot(OUTPUT).getItem(), handler.getStackInSlot(OUTPUT).getCount() + 1));
 			}
 			handler.setStackInSlot(INPUT_TO_COMPRESS, new ItemStack(handler.getStackInSlot(INPUT_TO_COMPRESS).getItem(), handler.getStackInSlot(INPUT_TO_COMPRESS).getCount() - 1));
+			return true;
 		}
+		return false;
 	}
 
 	private boolean canCompress() {
@@ -126,21 +126,20 @@ public class TileEntityCompressor extends TileEntity implements ITickable, ICapa
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
 		handler.deserializeNBT(compound.getCompoundTag("Inventory"));
-		cookTime = compound.getInteger("CookTime");
-		totalCookTime = compound.getInteger("TotalCookTime");
-		furnaceBurnTime = compound.getInteger("BurnTime");
-		currentItemBurnTime = compound.getInteger("CurrentItemBurnTime");
+		compressTime = compound.getInteger("CompressTime");
+		totalCompressTime = compound.getInteger("TotalCompressTime");
+		fuelTime = compound.getInteger("BurnTime");
+		currentItemFuelTime = compound.getInteger("CurrentItemFuelTime");
 	}
 	
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
-		//TODO: writeNBT
 		compound.setTag("Inventory", handler.serializeNBT());
-		compound.setInteger("CookTime", cookTime);
-		compound.setInteger("TotalCookTime", totalCookTime);
-		compound.setInteger("BurnTime", furnaceBurnTime);
-		compound.setInteger("CurrentItemBurnTime", currentItemBurnTime);
+		compound.setInteger("CompressTime", compressTime);
+		compound.setInteger("TotalCompressTime", totalCompressTime);
+		compound.setInteger("FuelTime", fuelTime);
+		compound.setInteger("CurrentItemFuelTime", currentItemFuelTime);
 		return compound;
 	}
 	

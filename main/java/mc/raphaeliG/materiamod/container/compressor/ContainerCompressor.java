@@ -2,10 +2,15 @@ package mc.raphaeliG.materiamod.container.compressor;
 
 import mc.raphaeliG.materiamod.tileentity.TileEntityCompressor;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.SlotFurnaceFuel;
+import net.minecraft.inventory.SlotFurnaceOutput;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -14,6 +19,11 @@ public class ContainerCompressor extends Container{
 	
 	private TileEntityCompressor tileEntity;
 	private IItemHandler handler;
+	
+    private int compressTime;
+    private int totalCompressTime;
+    private int fuelTime;
+    private int currentItemFuelTime;
 	
 	public ContainerCompressor(IInventory playerInventory, TileEntityCompressor tileEntity) {
 		this.tileEntity = tileEntity;
@@ -69,5 +79,17 @@ public class ContainerCompressor extends Container{
 	public boolean canInteractWith(EntityPlayer playerIn) {
 		return !playerIn.isSpectator();
 	}
-
+    
+    @Override
+	public void detectAndSendChanges() {
+		super.detectAndSendChanges();
+		for(int i = 0; i < this.listeners.size(); i++) {
+			IContainerListener listener = (IContainerListener)this.listeners.get(i);
+			if(this.compressTime != tileEntity.compressTime) {
+				listener.sendWindowProperty(this, 0, tileEntity.compressTime);
+				tileEntity.markDirty();
+			}
+		}
+		this.compressTime = tileEntity.compressTime;
+	}
 }
