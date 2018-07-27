@@ -83,6 +83,7 @@ public class PacketGetData implements IMessage {
 		}
 		
 		void processMessage(PacketGetData message, MessageContext ctx) {
+			Reference.logger.info("processing a packet get data!");
 			TileEntityCompressor te = (TileEntityCompressor) ctx.getServerHandler().player.getServerWorld().getTileEntity(message.pos);
 			if (te == null)
 				return;

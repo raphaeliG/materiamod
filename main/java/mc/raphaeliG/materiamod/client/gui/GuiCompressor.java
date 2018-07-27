@@ -17,7 +17,7 @@ public class GuiCompressor extends GuiContainer {
 	private IInventory playerInventory;
 	private TileEntityCompressor tileEntity;
 	
-	public static int fuelTime = 0, CurrentItemFuelTime = 0, compressTime = 0, totalCompressTime = 0;
+	public static int fuelTime = 0, currentItemFuelTime = 0, compressTime = 0, totalCompressTime = 0;
 	public static int sync = 0;
 	
 	public GuiCompressor(IInventory playerInventory, TileEntityCompressor tileEntity) {
@@ -45,7 +45,7 @@ public class GuiCompressor extends GuiContainer {
         fontRenderer.drawString(name, xSize / 2 - fontRenderer.getStringWidth(name) / 2, 3, 0x404040);
         fontRenderer.drawString(playerInventory.getDisplayName().getFormattedText(), 8, 72, 4210752);
         
-        sync = (sync + 1) % 10;
+        sync = (sync + 1) % 20;
         if (sync == 0) PacketHandler.INSTANCE.sendToServer(new PacketGetData(tileEntity.getPos(),
         		"mc.raphaeliG.materiamod.client.gui.GuiCompressor", "fuelTime", "currentItemFuelTime", "compressTime", "totalCompressTime"));
         

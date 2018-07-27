@@ -92,7 +92,6 @@ public class PacketReturnData implements IMessage {
 		
 		@Override
 		public IMessage onMessage(PacketReturnData message, MessageContext ctx) {
-			world = ctx.getServerHandler().player.getEntityWorld();
 			if (!message.messageValid && ctx.side != Side.CLIENT)
 				return null;
 			Minecraft.getMinecraft().addScheduledTask(() -> processMessage(message));
@@ -100,6 +99,7 @@ public class PacketReturnData implements IMessage {
 		}
 		
 		void processMessage(PacketReturnData message) {
+			Reference.logger.info("processing a packet return data!");
 			try {
 				//if (world.isBlockLoaded(message.))
 				Class clazz = Class.forName(message.className);

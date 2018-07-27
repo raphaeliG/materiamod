@@ -122,56 +122,57 @@ public class TileEntityCompressor extends TileEntity implements ITickable, ICapa
 		return super.hasCapability(capability, facing);
 	}
 	
-	@Override
-	public void readFromNBT(NBTTagCompound compound) {
-		super.readFromNBT(compound);
-		handler.deserializeNBT(compound.getCompoundTag("Inventory"));
-		compressTime = compound.getInteger("CompressTime");
-		totalCompressTime = compound.getInteger("TotalCompressTime");
-		fuelTime = compound.getInteger("BurnTime");
-		currentItemFuelTime = compound.getInteger("CurrentItemFuelTime");
-	}
 	
-	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-		super.writeToNBT(compound);
-		compound.setTag("Inventory", handler.serializeNBT());
-		compound.setInteger("CompressTime", compressTime);
-		compound.setInteger("TotalCompressTime", totalCompressTime);
-		compound.setInteger("FuelTime", fuelTime);
-		compound.setInteger("CurrentItemFuelTime", currentItemFuelTime);
-		return compound;
-	}
 	
 	@Override
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		NBTTagCompound nbt = new NBTTagCompound();
-		writeToNBT(nbt);
+		this.writeToNBT(nbt);
 		int metadata = getBlockMetadata();
-		return new SPacketUpdateTileEntity(pos, metadata, nbt);
+		return new SPacketUpdateTileEntity(this.pos, metadata, nbt);
 	}
-
+	
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-		readFromNBT(pkt.getNbtCompound());
+		this.readFromNBT(pkt.getNbtCompound());
 	}
-
+	
+	@Override
+	public void readFromNBT(NBTTagCompound nbt) {
+		super.readFromNBT(nbt);
+		fuelTime = nbt.getInteger("FuelTime");
+		currentItemFuelTime = nbt.getInteger("CurrentItemFuelTime");
+		compressTime = nbt.getInteger("CompressTime");
+		totalCompressTime = nbt.getInteger("TotalCompressTime");
+		handler.deserializeNBT(nbt.getCompoundTag("Inventory"));
+	}
+	
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+		nbt.setInteger("FuelTime", fuelTime);
+		nbt.setInteger("CurrentItemFuelTime", currentItemFuelTime);
+		nbt.setInteger("CompressTime", compressTime);
+		nbt.setInteger("TotalCompressTime", totalCompressTime);
+		nbt.setTag("Inventory", handler.serializeNBT());
+		return super.writeToNBT(nbt);
+	}
+	
 	@Override
 	public NBTTagCompound getUpdateTag() {
 		NBTTagCompound nbt = new NBTTagCompound();
-		writeToNBT(nbt);
+		this.writeToNBT(nbt);
 		return nbt;
 	}
-
+	
 	@Override
 	public void handleUpdateTag(NBTTagCompound tag) {
-		readFromNBT(tag);
+		this.readFromNBT(tag);
 	}
-
+	
 	@Override
 	public NBTTagCompound getTileData() {
 		NBTTagCompound nbt = new NBTTagCompound();
-		writeToNBT(nbt);
+		this.writeToNBT(nbt);
 		return nbt;
 	}
 }
